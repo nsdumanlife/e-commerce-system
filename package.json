@@ -1,0 +1,23 @@
+{
+  "name": "e-commerce-system",
+  "version": "1.0.0",
+  "description": "E-commerce application. Created for experience event driven architecture.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsdumanlife/e-commerce-system.git"
+  },
+  "author": "Numan Selman Duman <numanselmanduman@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nsdumanlife/e-commerce-system/issues"
+  },
+  "homepage": "https://github.com/nsdumanlife/e-commerce-system#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
