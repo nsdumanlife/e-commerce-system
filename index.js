@@ -1,36 +1,33 @@
+require('./payment-processor')
+require('./invoice-manager')
+require('./order-manager')
+
 const User = require('./user')
 const Inventory = require('./inventory')
 const Product = require('./product')
-const PaymentProcessor = require('./payment-processor')
-const InvoiceManager = require('./invoice-manager')
 const LogisticsManager = require('./logistics-manager')
-const Delivery = require('./delivery')
-const AnalyticsManager = require('./analytics-manager')
+const analyticsManager = require('./analytics-manager')
+
+const eventBus = require('./event-bus')
+
+eventBus.on('delivery created', (delivery) => {
+  logisticsManager.deliver(delivery)
+})
 
 const inventory = new Inventory()
-const paymentProcessor = new PaymentProcessor()
-const invoiceManager = new InvoiceManager()
 const logisticsManager = new LogisticsManager()
 
-const numan = new User()
 const camera = new Product('Video camera', 999.99)
-try {
-  inventory.addProduct(camera)
-  inventory.addProduct(camera)
+const numan = new User()
 
-  numan.addBalance(2000)
+inventory.addProduct(camera)
+inventory.addProduct(camera)
 
-  const order1 = numan.buy(paymentProcessor, inventory, invoiceManager, camera)
-  const order2 = numan.buy(paymentProcessor, inventory, invoiceManager, camera)
+numan.addBalance(2000)
 
-  const delivery1 = new Delivery(order1.product, numan)
-  const delivery2 = new Delivery(order2.product, numan)
+numan.buy(camera)
+numan.buy(camera)
 
-  logisticsManager.deliver(delivery1)
-  logisticsManager.deliver(delivery2)
-} catch (e) {
-  console.log(e)
-}
-AnalyticsManager.printActions()
+analyticsManager.printActions()
 
 console.log(numan)

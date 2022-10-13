@@ -1,6 +1,6 @@
 module.exports = class Delivery {
-  constructor(order, user) {
+  constructor(order, address) {
     this.order = order
-    this.user = user
+    this.address = address
   }
 }

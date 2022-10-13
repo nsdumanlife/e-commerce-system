@@ -1,20 +1,24 @@
-const Order = require('./order')
-const AnalyticsManager = require('./analytics-manager')
+const eventBus = require('./event-bus')
 
 module.exports = class User {
   orders = []
   balance = 0
+  address = 'Address'
 
-  buy(paymentProcessor, inventory, invoiceManager, product) {
-    AnalyticsManager.track('buying started')
-    const payment = paymentProcessor.pay(this, product)
-    inventory.removeProduct(product)
-    const invoice = invoiceManager.issueInvoice(payment, this)
-    const order = new Order(product, invoice)
+  constructor() {
+    eventBus.on('payment successful', (product, payment) => {
+      this.balance -= payment
+    })
 
-    this.orders.push(product)
-    AnalyticsManager.track('buying finished')
-    return order
+    eventBus.on('order created', (order) => {
+      this.orders.push(order)
+    })
+  }
+
+  buy(product) {
+    eventBus.emit('buying started')
+    eventBus.emit('pay', this.balance, product, this.address)
+    eventBus.emit('buying finihed')
   }
 
   addBalance(amount) {

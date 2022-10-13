@@ -1,14 +1,18 @@
-const AnalyticsManager = require('./analytics-manager')
+const eventBus = require('./event-bus')
 
-module.exports = class PaymentProcessor {
-  pay(user, product) {
-    if (user.balance < product.price) {
-      AnalyticsManager.track('payment unsuccessful')
-      throw new Error('insufficient fund')
+class PaymentProcessor {
+  constructor() {
+    eventBus.on('pay', (balance, product, address) => {
+      this.pay(balance, product, address)
+    })
+  }
+  pay(balance, product, address) {
+    if (balance < product.price) {
+      return eventBus.emit('insufficient fund')
     }
 
-    user.balance -= product.price
-    AnalyticsManager.track('payment successful')
-    return product.price
+    eventBus.emit('payment successful', product, product.price, address)
   }
 }
+
+module.exports = new PaymentProcessor()

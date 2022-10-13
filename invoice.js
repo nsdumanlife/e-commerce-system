@@ -1,9 +1,9 @@
-module.exports = class Invoice {
-  payment = null
-  user = null
+const eventBus = require('./event-bus')
 
-  constructor(payment, user) {
+module.exports = class Invoice {
+  constructor(product, payment, address) {
+    this.product = product
     this.payment = payment
-    this.user = user
+    this.address = address
   }
 }
