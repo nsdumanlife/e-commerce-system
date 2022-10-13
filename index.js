@@ -27,6 +27,7 @@ numan.addBalance(2000)
 
 numan.buy(camera)
 numan.buy(camera)
+numan.buy(camera)
 
 analyticsManager.printActions()
 

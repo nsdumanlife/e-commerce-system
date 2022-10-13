@@ -7,7 +7,7 @@ class AnalyticsManager {
     // eventBus.on('',(event) => this.track(event))
     eventBus.on('buying started', () => this.track('buying started'))
     eventBus.on('buying finished', () => this.track('buying finished'))
-    eventBus.on('insufficient funds', () => this.track('insufficient funds'))
+    eventBus.on('insufficient fund', () => this.track('insufficient fund'))
     eventBus.on('payment successful', () => this.track('payment successful'))
     eventBus.on('invoice created', () => this.track('invoice created'))
     eventBus.on('order created', () => this.track('order created'))
